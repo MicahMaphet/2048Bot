@@ -15,5 +15,7 @@ pip install pillow
 ```
 The bot does not press random buttons, it reads the board an responds accordingly
 
+its record is 5436, it got the 512 tile
+
 It works best if 2048 is in full screen. It may not find it if it is not in full screen
 Make sure the mouse is not overthe board or any of the tiles because that could confuse it
