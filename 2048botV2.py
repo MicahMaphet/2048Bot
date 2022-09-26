@@ -2,6 +2,8 @@ import keyboard
 from PIL import ImageGrab, ImageOps
 import pyautogui
 import time
+import math
+print(ImageOps)
 
 px = ImageGrab.grab().load()
 
@@ -30,10 +32,10 @@ class Board:
     c2 = [0, 0]
     c3 = [0, 0]
     c4 = [0, 0]
-    tile = ['0  ', '0  ', '0  ', '0  ',
-            '0  ', '0  ', '0  ', '0  ',
-            '0  ', '0  ', '0  ', '0  ',
-            '0  ', '0  ', '0  ', '0  ']
+    tile = [0, 0, 0, 0,
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+            0, 0, 0, 0]
     tileWidth = 106.25
     
     width = 500 # it might not be 100 if it is zoomed in
@@ -63,7 +65,6 @@ def FindEdge():
         for x in range(0, pyautogui.size().width, 14):
             color = px[x, y]
             if color == outlineClr:
-                print(x, y)
                 # it has located a pixel with the same color as the board
                 # it doesn't know for sure if it has located the board
                 if px[x, y] == outlineClr:
@@ -111,7 +112,6 @@ def FindEdge():
         while color == outlineClr:
             y+=1
             color = px[x, y]
-        y+=5
         color = px[x, y]
         board.c3[1] = y
         board.width = board.c3[1] - board.c1[1]
@@ -148,48 +148,98 @@ def TileQuard(tile):
 
 def ScanTile(quard):
     color = px[quard[0], quard[1]]
-    # print(color, Values.empty, quard[0], quard[1])
     if color == Values.empty:
-        return '0  '
+        return 0
     if color == Values.two:
-        return '2  '
+        return 2
     if color == Values.four:
-        return '4  '
+        return 4
     if color == Values.eight:
-        return '8  '
+        return 8
     if color == Values.sixteen:
-        return '16 '
+        return 16
     if color == Values.thirtyTwo:
-        return '32 '
+        return 32
     if color == Values.sixtyFour:
-        return '64 '
+        return 64
     if color == Values.oneTwentyEight:
-        return '128'
+        return 128
     if color == Values.twoFiftySix:
-        return '256'
+        return 256
     if color == Values.fiveOneTwo:
-        return '512'
+        return 512
     if color == outlineClr:
         return quard[0], quard[1], 'is the edge, needs a different quardanite'
     return 'Error: no tile found'
 
+def DisplayTiles():
+    print('-------')
+    print(board.tile[0], board.tile[1], board.tile[2], board.tile[3])
+    print(board.tile[4], board.tile[5], board.tile[6], board.tile[7])
+    print(board.tile[8], board.tile[9], board.tile[10], board.tile[11])
+    print(board.tile[12], board.tile[13], board.tile[14], board.tile[15])
+    print('-------')
+
+
 def ScanTiles():
+    time.sleep(0.1)
+    global px
+    px = ImageGrab.grab().load()
+    global changed
+    changed = False
     for i in range(16):
+        remTile = board.tile[i]
         board.tile[i] = ScanTile(TileQuard(i))
-        print('tile', i, board.tile[i])
+        if board.tile[i]!=remTile:
+            changed = True
+    print(changed)
+
+    
 
 FindEdge()
 
 px = ImageGrab.grab().load()
 ScanTiles()
-def DisplayTiles():
-    print(board.tile[0], board.tile[1], board.tile[2], board.tile[3])
-    print(board.tile[4], board.tile[5], board.tile[6], board.tile[7])
-    print(board.tile[8], board.tile[9], board.tile[10], board.tile[11])
-    print(board.tile[12], board.tile[13], board.tile[14], board.tile[15])
+
 
 DisplayTiles()
-print(board.width)
+
+def tilePos(tile):
+    return tile % 4, math.floor(tile / 4)
+
+while 1:
+    ScanTiles()
+    # print(remTile)
+    # print(remTile)
+    for i in range(5):
+        pyautogui.press('down')
+        pyautogui.press('right')
+    # print(board.tile)
+    ScanTiles()
+    # print(board.tile)
+    # print(board.tile, remTile)
+    if changed != True:
+        pyautogui.press('left')
+
+        ScanTiles()
+        if changed != True:
+            # print(board.tile == remTile, board.tile, remTile)
+            pyautogui.press('up')
+        
+# for i in range (5):
+#     pyautogui.press('left')
+#     for j in range(5):
+#         pyautogui.press('up')
+#         for k in range(5):
+#             pyautogui.press('right') 
+#             for l in range(5):
+#                 pyautogui.press('down')
+
+
+
+# for j in range(5):
+    # for i in range(16):
+        # tileColapse(i)
 
 # 187, 173, 160 - the outline
 
