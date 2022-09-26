@@ -187,8 +187,10 @@ def DisplayTiles():
     print(board.tile[4], board.tile[5], board.tile[6], board.tile[7])
     print(board.tile[8], board.tile[9], board.tile[10], board.tile[11])
     print(board.tile[12], board.tile[13], board.tile[14], board.tile[15])
+
 DisplayTiles()
 print(board.width)
+
 # 187, 173, 160 - the outline
 
 # def testFun1(x):
