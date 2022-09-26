@@ -10,15 +10,6 @@ px = ImageGrab.grab().load()
 
 print(pyautogui.size())
 
-
-# while 1:
-    # print(pyautogui.position())
-# while 1:
-#     px = ImageGrab.grab().load()
-#     print(px[pyautogui.position().x, pyautogui.position().y])
-#     if keyboard.is_pressed('g') and keyboard.is_pressed('h'):
-#         break
-
 pyautogui.FAILSAFE=False
 outlineClr=(187, 173, 160)
 foundEdge=False
@@ -209,44 +200,13 @@ def tilePos(tile):
 
 while 1:
     ScanTiles()
-    # print(remTile)
-    # print(remTile)
     for i in range(5):
         pyautogui.press('down')
         pyautogui.press('right')
-    # print(board.tile)
     ScanTiles()
-    # print(board.tile)
-    # print(board.tile, remTile)
     if changed != True:
         pyautogui.press('left')
 
         ScanTiles()
         if changed != True:
-            # print(board.tile == remTile, board.tile, remTile)
             pyautogui.press('up')
-        
-# for i in range (5):
-#     pyautogui.press('left')
-#     for j in range(5):
-#         pyautogui.press('up')
-#         for k in range(5):
-#             pyautogui.press('right') 
-#             for l in range(5):
-#                 pyautogui.press('down')
-
-
-
-# for j in range(5):
-    # for i in range(16):
-        # tileColapse(i)
-
-# 187, 173, 160 - the outline
-
-# def testFun1(x):
-#     print(x, x[0], x[1])
-
-# def testFun2():
-#     return [5, 1]
-
-# testFun1(testFun2())
