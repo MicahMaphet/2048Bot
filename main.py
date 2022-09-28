@@ -173,7 +173,7 @@ def DisplayTiles():
 
 
 def ScanTiles():
-    time.sleep(0.1)
+    time.sleep(0.05)
     global px
     px = ImageGrab.grab().load()
     global changed
@@ -200,9 +200,10 @@ def tilePos(tile):
 
 while 1:
     ScanTiles()
-    for i in range(5):
+    for i in range(3):
         pyautogui.press('down')
         pyautogui.press('right')
+
     ScanTiles()
     if changed != True:
         pyautogui.press('left')
